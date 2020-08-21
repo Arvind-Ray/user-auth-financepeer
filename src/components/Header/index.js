@@ -41,7 +41,7 @@ function Header({ Onregister, Onlogin, register, login }) {
   React.useEffect(() => {
     if(logoutbool === true) {
       localStorage.removeItem("permission data")
-      history.push('/financepeer')
+      window.location.replace('/financepeer')
     } 
   },[logoutbool]);
 
@@ -72,7 +72,7 @@ function Header({ Onregister, Onlogin, register, login }) {
   }
 
   const handleLogout = () => {
-    setLogout(true)
+    setLogout(!logoutbool)
   }
   if(login && login.success) {
     history.push('/home')

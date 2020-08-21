@@ -14,7 +14,7 @@ function App() {
   return (
     <Router history={history}>
       <Switch>
-        <Route path="/financepeer">
+        <Route exact path="/financepeer">
           <LoginPage />
         </Route>
         <Route exact path="/home">
