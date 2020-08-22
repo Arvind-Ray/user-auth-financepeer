@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 const postSchema = new Schema({
   id: {
     type: Number,
-    unique: true,
     required: true
   },
   userId: {

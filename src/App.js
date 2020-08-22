@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  useHistory
+  useHistory,
+  Redirect
 } from "react-router-dom";
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
@@ -14,7 +15,7 @@ function App() {
   return (
     <Router history={history}>
       <Switch>
-        <Route exact path="/financepeer">
+        <Route exact path="/">
           <LoginPage />
         </Route>
         <Route exact path="/home">

@@ -7,37 +7,34 @@ import CustomTable from '../../components/Table';
 import { Button } from '@material-ui/core';
 
 function HomePage({OnpostData, OngetPostData, getPostData, postData}) {
-    const [value, setValue] = React.useState("");
-    React.useEffect(() => {
-        console.log("hello post")
-        OngetPostData();
-        
-    });
-    
-    const onFileUpload = async () => { 
-     
-        // Create an object of formData 
-        let formData = new FormData(); 
-       
-        // Update the formData object 
-        formData.append( 
-          "jsonFile", 
-          value, 
-          value.name 
-        ); 
-       
-        // Details of the uploaded file 
-        console.log(value); 
-        await OnpostData(formData);
-    }
+    const [file, setFile] = React.useState('');
 
-    console.log(getPostData, "ravi");
+    React.useEffect(() => {
+        OngetPostData();
+    },[])
+
+    const onChange = e => {
+        setFile(e.target.files[0]);
+    };
+
+    const onSubmit = async e => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('file', file);
+        await OnpostData(formData);
+
+    };
+
     return(
         <Layout>
             <h1>Welcome to Financepeer below is the detail in table format!</h1>
-            <input type="file"  onChange={(e) => setValue(e.target.files[0])}/>
-            <Button onClick={onFileUpload}>Submit file</Button>
-            <CustomTable />
+            <form onSubmit={onSubmit}>
+                <input type="file" onChange={onChange} />
+                <Button type='submit' value='Upload' variant="contained"  color="secondary">Submit file</Button>
+            </form>
+            <CustomTable 
+                data= {getPostData && getPostData.data}
+            />
         </Layout>
     )
 

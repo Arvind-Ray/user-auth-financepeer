@@ -1,10 +1,9 @@
 import axios from 'axios';
 import actionTypes from '../../action-types';
 
-export default (fileData) => ( dispatch ) => { 
-    console.log(fileData, "why thisd data")
+export default (formData) => ( dispatch ) => { 
     const url = `/api/posts/newPost`;
-    axios.post(url, fileData)
+    axios.post(url, formData, { headers: { 'Content-Type': 'multipart/form-data'} })
     .then(res => {
         dispatch({type: actionTypes.ON_POST_DATA, payload: res.data});
     })

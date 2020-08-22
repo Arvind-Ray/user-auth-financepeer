@@ -4,7 +4,7 @@ import actionTypes from '../../action-types';
 export default () => ( dispatch ) => { 
     const url = `/api/posts/post`;
     const body = {};
-    axios.post(url, body)
+    axios.get(url, body)
     .then(res => {
         dispatch({type: actionTypes.ON_GET_DATA, payload: res.data});
     })

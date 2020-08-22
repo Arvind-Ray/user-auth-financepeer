@@ -1,5 +1,6 @@
 import React from 'react';
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import jwtDecode from 'jwt-decode';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -41,8 +42,9 @@ function Header({ Onregister, Onlogin, register, login }) {
   React.useEffect(() => {
     if(logoutbool === true) {
       localStorage.removeItem("permission data")
-      window.location.replace('/financepeer')
+      window.location.replace('/')
     } 
+
   },[logoutbool]);
 
   const handleUser = (e) => {
@@ -74,19 +76,23 @@ function Header({ Onregister, Onlogin, register, login }) {
   const handleLogout = () => {
     setLogout(!logoutbool)
   }
+  console.log(login.success, "Arttttttttttttt")
   if(login && login.success) {
     history.push('/home')
   }
+
+
+  const decoded = localStorage.getItem("permission data") !== null && jwtDecode(localStorage.getItem("permission data"));
 
   return (
     <div className={classes.root}>
       <AppBar position="static" color="secondary">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Welcome to Financepeer 
+            {decoded ? `Welcome ${decoded.name} to Financepeer your ID is ${decoded.id}`: "Welcome to financepeer"} 
           </Typography>
-          {!login.success ? <Button onClick={handleModalOpen} color="inherit">Login</Button>:
-          <Button onClick={handleLogout} color="inherit">Login out</Button>}
+          {!decoded ? <Button onClick={handleModalOpen} color="inherit">Login</Button>:
+          <Button onClick={handleLogout} color="inherit">Logout</Button>}
         </Toolbar>
       </AppBar>
       <Modal
